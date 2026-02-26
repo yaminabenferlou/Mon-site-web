@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projets | Yamina Benferlou</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <header class="top-bar">
+            <a href="index.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Retour
+            </a>
+            <a href="index.html" class="logo-container">
+                <img src="image/logo.png" alt="Logo YB" class="custom-logo custom-logo-small">
+            </a>
+          <div class="header-links">
+                <a href="https://github.com/yaminabenferlou" target="_blank" class="contact-header" title="Mon GitHub">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/yamina-benferlou-9880ba329/details/projects/" target="_blank" class="contact-header" title="Mon LinkedIn">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+                <a href="mailto:yaminabenferlou@gmail.com" class="contact-header" title="Me contacter">
+                    <i class="fa-regular fa-envelope"></i>
+                </a>
+            </div>
+        </header>
+
+        <main class="page-content">
+            
+            <div class="page-header animate-fade-in">
+                <div class="icon-title"><i class="fa-regular fa-folder-open"></i></div>
+                <h1>Mes Réalisations</h1>
+                <p>Découvrez mes projets académiques en analyse de données, modélisation et data visualisation.</p>
+            </div>
+
+            <div class="projects-grid">
+                
+                <div class="project-card animate-box-1">
+                    <div class="project-image-container">
+                        <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop'); background-color: #1e1e24;"></div>
+                        <div class="project-overlay-icon"><i class="fa-solid fa-link"></i></div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tech-tags">
+                            <span>Python (Pandas, Scikit-learn)</span>
+                            <span>SAS</span>
+                            <span>Data Viz</span>
+                        </div>
+                        <h2>Performance d'un Modèle de Scoring Bancaire</h2>
+                        <div class="project-meta">
+                            <span><i class="fa-regular fa-calendar"></i> Janv 2026</span>
+                            <span><i class="fa-solid fa-building-columns"></i> IUT de Paris Rives de Seine</span>
+                        </div>
+                        
+                        <p class="project-intro">Évaluation approfondie d'un modèle de Machine Learning destiné à mesurer le risque de crédit bancaire. L'objectif de cette étude est d'identifier les profils à risque et de valider la robustesse statistique des critères d'octroi de prêt.</p>
+
+                        <ul class="project-tasks">
+                            <li>Étude des profils les plus risqués et des facteurs explicatifs (apport, situation familiale, etc.).</li>
+                            <li>Évaluation de la performance et de la discrimination du modèle à l’aide de la Courbe ROC, AUC, Gini et Lift.</li>
+                            <li>Réalisation d’une Analyse en Composantes Principales (ACP) pour détecter les corrélations majeures entre les facteurs de risque.</li>
+                        </ul>
+                        <a href="Projet_Bancaire.pdf" target="_blank" class="btn-project">Visualiser le rapport <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+
+                <div class="project-card animate-box-2">
+                    <div class="project-image-container">
+                        <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?q=80&w=1000&auto=format&fit=crop'); background-color: #1e1e24;"></div>
+                        <div class="project-overlay-icon"><i class="fa-solid fa-link"></i></div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tech-tags">
+                            <span>R</span>
+                            <span>Rshiny</span>
+                            <span>Excel</span>
+                        </div>
+                        <h2>Analyse et Prévision de la Qualité de l’Air</h2>
+                        <div class="project-meta">
+                            <span><i class="fa-regular fa-calendar"></i> Mars 2025</span>
+                            <span><i class="fa-solid fa-building-columns"></i> IUT de Paris Rives de Seine</span>
+                        </div>
+
+                        <p class="project-intro">Étude des données environnementales visant à modéliser et anticiper les variations de pollution de l'air. Le projet couvre l'intégralité du cycle de vie de la donnée, de l'automatisation du nettoyage jusqu'aux prévisions temporelles.</p>
+
+                        <ul class="project-tasks">
+                            <li>Conception d’un pipeline automatisé pour le nettoyage et la mise à jour des données.</li>
+                            <li>Validation de la qualité et de la cohérence des données à l’aide de tests statistiques (Tests de normalité, détection d’outliers).</li>
+                            <li>Modélisation prédictive avec méthodes statistiques (SARMA, Holt-Winters, régression) et création de Dashboards interactifs.</li>
+                        </ul>
+                        <a href="Serie_Tempo.pdf" target="_blank" class="btn-project">Visualiser le rapport <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+
+                <div class="project-card span-2 animate-box-3">
+                    <div class="project-image-container" style="height: 280px;">
+                        <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1000&auto=format&fit=crop'); background-color: #1e1e24;"></div>
+                        <div class="project-overlay-icon"><i class="fa-solid fa-link"></i></div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tech-tags">
+                            <span>Power BI</span>
+                            <span>DAX</span>
+                            <span>Modélisation SID</span>
+                        </div>
+                        <h2>Analyse des comportements d’achat – Olist Store</h2>
+                        <div class="project-meta">
+                            <span><i class="fa-regular fa-calendar"></i> Oct 2024 – Janv 2025</span>
+                            <span><i class="fa-solid fa-building-columns"></i> IUT de Paris Rives de Seine</span>
+                        </div>
+                        <p class="project-intro">Analyse des données de la plateforme e-commerce Olist Store (Brésil) pour étudier les habitudes de consommation, les modes de paiement et la performance des produits, via la modélisation d'un SID et d'un tableau de bord interactif.</p>
+                        <ul class="project-tasks">
+                            <li>Nettoyage et préparation des fichiers CSV dans Power BI, création de colonnes calculées et catégorisations.</li>
+                            <li>Définition des dimensions, identification des faits clés et mise en place d’un modèle décisionnel performant.</li>
+                            <li>Création de mesures dynamiques en DAX (ventes totales, montant moyen, délais de livraison, retours, évolution mensuelle) et réalisation de graphiques interactifs.</li>
+                            <li>Identification des produits et régions les plus performants pour améliorer la logistique et la fidélisation client.</li>
+                        </ul>
+                        <a href="Projet_SID.pdf" target="_blank" class="btn-project">Visualiser le rapport <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,549 @@
+/* =========================================
+   VARIABLES GLOBALES & FOND
+   ========================================= */
+:root {
+    --bg-main: #0a0a0c;
+    --card-bg: rgba(25, 25, 30, 0.4); 
+    --card-border: rgba(255, 255, 255, 0.08);
+    --accent-color: #60a5fa; 
+    --accent-glow: rgba(96, 165, 250, 0.15);
+    
+    --text-main: #ffffff;
+    --text-muted: #9ca3af;
+    
+    --font-heading: 'Syne', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg-main); color: var(--text-main); font-family: var(--font-body);
+    min-height: 100vh; display: flex; justify-content: center;
+    background-image: radial-gradient(circle at 50% -10%, #141e30 0%, var(--bg-main) 70%); background-attachment: fixed;
+}
+
+a { text-decoration: none; color: inherit; display: block; outline: none; }
+.app-container { width: 100%; max-width: 1100px; padding: 40px 20px; }
+
+/* =========================================
+   ANIMATIONS GLOBALES
+   ========================================= */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+.animate-fade-in { opacity: 0; animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
+/* =========================================
+   EN-TÊTE ET LOGO
+   ========================================= */
+.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 60px; padding: 10px 0; }
+.logo-container { display: flex; align-items: center; justify-content: center; padding: 0 20px; }
+.custom-logo { height: 90px; width: auto; object-fit: contain; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); }
+.custom-logo:hover { transform: scale(1.08) rotate(-2deg); }
+
+.header-links { display: flex; gap: 15px; align-items: center; }
+.contact-header { width: 50px; height: 50px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.3s ease; backdrop-filter: blur(10px); }
+.contact-header:hover { background: var(--text-main); color: var(--bg-main); transform: scale(1.1); box-shadow: 0 0 15px rgba(255,255,255,0.2); }
+
+/* =========================================
+   ÉLÉMENTS COMMUNS (ACCUEIL & SOUS-PAGES)
+   ========================================= */
+.back-btn { display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 0.95rem; font-weight: 500; transition: all 0.3s ease; background: var(--card-bg); padding: 10px 20px; border: 1px solid var(--card-border); border-radius: 30px; backdrop-filter: blur(10px); }
+.back-btn:hover { color: var(--text-main); border-color: var(--accent-color); transform: translateX(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.custom-logo-small { height: 70px; }
+.page-header { text-align: center; margin-bottom: 50px; margin-top: 10px; }
+.icon-title { width: 80px; height: 80px; margin: 0 auto 20px; background: rgba(96, 165, 250, 0.1); color: var(--accent-color); border: 1px solid rgba(96, 165, 250, 0.3); border-radius: 25px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; box-shadow: 0 10px 20px rgba(96, 165, 250, 0.1); }
+.page-header h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 15px; }
+.page-header p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+.global-hover-hint { text-align: center; color: var(--accent-color); font-size: 0.95rem; font-style: italic; margin-top: -20px; margin-bottom: 40px; opacity: 0.9; }
+.global-hover-hint i { margin-right: 5px; }
+
+/* =========================================
+   PAGE D'ACCUEIL : GRILLE BENTO
+   ========================================= */
+.bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(220px, auto); gap: 24px; }
+.bento-card { background: linear-gradient(145deg, rgba(30, 30, 35, 0.5), rgba(15, 15, 20, 0.7)); backdrop-filter: blur(15px); border: 1px solid var(--card-border); border-radius: 30px; padding: 35px; display: flex; flex-direction: column; position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+a.bento-card:hover { transform: translateY(-8px); border-color: rgba(96, 165, 250, 0.5); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(96, 165, 250, 0.15); background: linear-gradient(145deg, rgba(35, 35, 45, 0.8), rgba(20, 20, 25, 0.9)); cursor: pointer; }
+.hover-glow { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at top right, var(--accent-glow), transparent 60%); opacity: 0; transition: opacity 0.5s ease; pointer-events: none; z-index: 0; }
+a.bento-card:hover .hover-glow { opacity: 1; }
+.span-2-col { grid-column: span 2; } .span-3-col { grid-column: span 3; } .span-2-row { grid-row: span 2; }
+
+.hero-card { justify-content: center; background: linear-gradient(135deg, rgba(20,20,25,0.9), rgba(10,10,12,0.9)); }
+.hero-card h1 { font-family: var(--font-heading); font-size: 4.5rem; line-height: 1; margin-bottom: 15px; letter-spacing: -1px;}
+.hero-card h2 { font-size: 1.3rem; color: var(--text-muted); font-weight: 400; margin-bottom: 30px; }
+.divider { width: 50px; height: 3px; background-color: var(--accent-color); margin-bottom: 30px; border-radius: 5px; box-shadow: 0 0 10px var(--accent-color); }
+.hero-card .quote { font-style: italic; font-weight: 300; font-size: 1.1rem; line-height: 1.5; color: #d1d5db; }
+.card-icon-large { width: 70px; height: 70px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--text-main); margin-bottom: auto; transition: all 0.4s ease; position: relative; z-index: 1; }
+a.bento-card:hover .card-icon-large { background: rgba(96, 165, 250, 0.2); color: var(--accent-color); border-color: rgba(96, 165, 250, 0.4); transform: scale(1.1) rotate(-5deg); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+.nav-card-content { position: relative; z-index: 1; margin-top: 30px; }
+.nav-card-content h3 { font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 10px; transition: color 0.3s; }
+.nav-card-content p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
+a.bento-card:hover .nav-card-content h3 { color: var(--accent-color); }
+.projects-nav { flex-direction: row; align-items: center; justify-content: flex-start; gap: 40px; }
+.projects-preview { display: flex; gap: -30px; position: relative; z-index: 1; }
+.preview-img { width: 120px; height: 120px; border-radius: 20px; background-size: cover; background-position: center; background-color: #333; border: 4px solid var(--bg-main); box-shadow: 0 10px 20px rgba(0,0,0,0.5); transition: all 0.5s ease; }
+.preview-img:nth-child(2) { margin-left: -50px; transform: scale(0.85) rotate(5deg); opacity: 0.7; }
+a.bento-card:hover .preview-img:nth-child(1) { transform: translateY(-10px) rotate(-5deg) scale(1.05); box-shadow: 0 20px 30px rgba(0,0,0,0.6); }
+a.bento-card:hover .preview-img:nth-child(2) { transform: translateY(-5px) rotate(8deg) scale(1.05); margin-left: -30px; opacity: 1; }
+a.cv-card:hover { border-color: rgba(16, 185, 129, 0.5); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(16, 185, 129, 0.15); }
+a.cv-card:hover .cv-icon { background: rgba(16, 185, 129, 0.2); color: #10b981; border-color: rgba(16, 185, 129, 0.4); }
+a.cv-card:hover .nav-card-content h3 { color: #10b981; }
+.cv-glow { background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.15), transparent 60%); }
+
+/* =========================================
+   PAGE FORMATIONS : LES PILIERS INTERACTIFS
+   ========================================= */
+.formations-accordion { display: flex; gap: 20px; width: 100%; max-width: 1100px; height: 520px; margin: 0 auto 50px; }
+.acc-panel { flex: 1; position: relative; border-radius: 30px; background: linear-gradient(145deg, rgba(30, 30, 35, 0.5), rgba(15, 15, 20, 0.7)); backdrop-filter: blur(15px); border: 1px solid var(--card-border); overflow: hidden; transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), background 0.6s, box-shadow 0.6s, border-color 0.4s; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; padding: 35px 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); opacity: 0; animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.acc-panel:hover { flex: 3; background: linear-gradient(145deg, rgba(35, 35, 45, 0.85), rgba(20, 20, 25, 0.95)); border-color: rgba(96, 165, 250, 0.5); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 60px rgba(96, 165, 250, 0.05); }
+.acc-icon { width: 65px; height: 65px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--text-main); transition: all 0.5s ease; }
+.acc-panel:hover .acc-icon { background: rgba(96, 165, 250, 0.2); color: var(--accent-color); transform: scale(1.1); box-shadow: 0 10px 20px rgba(0,0,0,0.3); border-color: rgba(96, 165, 250, 0.4); }
+.acc-vertical-title { position: absolute; bottom: 35px; left: 50%; transform: translateX(-50%) rotate(180deg); writing-mode: vertical-rl; text-orientation: mixed; white-space: nowrap; font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; color: var(--text-muted); opacity: 1; transition: opacity 0.3s ease; letter-spacing: 1px; }
+.acc-panel:hover .acc-vertical-title { opacity: 0; pointer-events: none; }
+.acc-content { opacity: 0; transform: translateY(20px); visibility: hidden; transition: all 0.4s ease; min-width: 320px; }
+.acc-panel:hover .acc-content { opacity: 1; transform: translateY(0); visibility: visible; transition-delay: 0.15s; }
+.acc-year { font-family: var(--font-heading); font-size: 1.6rem; color: var(--accent-color); font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
+.acc-content h2 { font-family: var(--font-heading); font-size: 1.7rem; margin-bottom: 8px; line-height: 1.2; color: #fff; }
+.acc-content h3 { font-size: 1.15rem; color: #d1d5db; font-weight: 400; margin-bottom: 25px; }
+.acc-content .speciality { display: inline-block; padding: 8px 16px; background: rgba(96, 165, 250, 0.1); border-radius: 12px; font-size: 0.95rem; color: var(--accent-color); border: 1px solid rgba(96, 165, 250, 0.2); font-weight: 500; }
+
+/* =========================================
+   BENTO GRID POUR LES SOUS-PAGES (Compétences & Qui suis-je)
+   ========================================= */
+.skills-bento-grid, .about-bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto 50px; }
+.span-2 { grid-column: span 2; }
+
+.animate-box-1 { opacity: 0; animation: fadeInUp 0.8s ease 0.1s forwards; }
+.animate-box-2 { opacity: 0; animation: fadeInUp 0.8s ease 0.2s forwards; }
+.animate-box-3 { opacity: 0; animation: fadeInUp 0.8s ease 0.3s forwards; }
+.animate-box-4 { opacity: 0; animation: fadeInUp 0.8s ease 0.4s forwards; }
+
+.bento-skill-card {
+    background: linear-gradient(145deg, rgba(30, 30, 35, 0.5), rgba(15, 15, 20, 0.7)); backdrop-filter: blur(15px);
+    border: 1px solid var(--card-border); border-radius: 30px; padding: 40px; transition: all 0.4s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+.bento-skill-card:hover { transform: translateY(-5px); border-color: rgba(96, 165, 250, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 30px rgba(96, 165, 250, 0.05); }
+
+.skill-card-header { display: flex; align-items: center; gap: 15px; margin-bottom: 30px; }
+.skill-card-header i { font-size: 1.8rem; color: var(--accent-color); background: rgba(96, 165, 250, 0.1); padding: 12px; border-radius: 12px; }
+.skill-card-header h2 { font-family: var(--font-heading); font-size: 1.5rem; color: var(--text-main); margin-bottom: 4px; }
+
+.tags-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+.pro-tag { position: relative; display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; font-size: 0.95rem; color: #d1d5db; transition: all 0.3s ease; overflow: hidden; z-index: 1; }
+.pro-tag i { color: var(--accent-color); font-size: 1.2rem; transition: color 0.3s ease; }
+.pro-tag::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 0; background: rgba(96, 165, 250, 0.25); z-index: -1; transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+.bento-skill-card:hover .pro-tag:hover { border-color: var(--accent-color); color: #fff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(96, 165, 250, 0.2); }
+.bento-skill-card:hover .pro-tag:hover::before { width: var(--level, 0%); }
+
+.theory-tags { display: flex; flex-wrap: wrap; gap: 15px; }
+.theory-tag { padding: 10px 20px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--card-border); border-radius: 30px; font-size: 0.95rem; color: #d1d5db; transition: all 0.3s ease; }
+.bento-skill-card:hover .theory-tag:hover { background: rgba(96, 165, 250, 0.15); border-color: var(--accent-color); color: #fff; transform: scale(1.05); box-shadow: 0 5px 15px rgba(96, 165, 250, 0.2); }
+.soft-tag { background: transparent; border-style: dashed; border-color: rgba(255, 255, 255, 0.15); }
+.bento-skill-card:hover .soft-tag:hover { background: rgba(255, 255, 255, 0.05); border-color: #fff; border-style: solid; box-shadow: none; }
+
+.centered-bio-card { display: flex; flex-direction: column; align-items: center; }
+.center-header { justify-content: center; margin-bottom: 40px; }
+.centered-bio { max-width: 850px; margin: 0 auto; }
+.about-bio p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; margin-bottom: 25px; text-align: justify; }
+.about-bio p:last-child { margin-bottom: 0; }
+.highlight-text { color: var(--text-main) !important; font-weight: 500; font-style: italic; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px; margin-top: 10px; text-align: center !important; }
+
+.lang-list { display: flex; flex-direction: column; gap: 15px; }
+.lang-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(0, 0, 0, 0.2); border-radius: 16px; border: 1px solid transparent; transition: all 0.3s ease; }
+.bento-skill-card:hover .lang-item:hover { background: rgba(255, 255, 255, 0.03); border-color: var(--card-border); transform: translateX(5px); }
+.lang-name { color: var(--text-main); font-weight: 500; display: flex; align-items: center; gap: 10px; }
+.lang-name i { color: var(--accent-color); font-size: 0.9rem; }
+.lang-level { font-size: 0.85rem; font-weight: 600; padding: 6px 14px; border-radius: 20px; letter-spacing: 0.5px; text-transform: uppercase; }
+.level-high { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+.level-med { background: rgba(96, 165, 250, 0.1); color: var(--accent-color); border: 1px solid rgba(96, 165, 250, 0.2); }
+.level-low { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); border: 1px solid rgba(255, 255, 255, 0.1); }
+
+.interest-list { display: flex; flex-direction: column; gap: 15px; }
+.interest-item { display: flex; align-items: center; gap: 20px; padding: 15px; background: rgba(0, 0, 0, 0.2); border-radius: 16px; transition: all 0.3s ease; border: 1px solid transparent; }
+.bento-skill-card:hover .interest-item:hover { background: rgba(96, 165, 250, 0.05); border-color: rgba(96, 165, 250, 0.3); transform: scale(1.02); }
+.interest-icon { width: 50px; height: 50px; background: rgba(255, 255, 255, 0.03); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: var(--accent-color); transition: 0.3s; border: 1px solid rgba(255,255,255,0.05);}
+.bento-skill-card:hover .interest-item:hover .interest-icon { background: var(--accent-color); color: var(--bg-main); transform: rotate(-5deg); }
+.interest-text { color: var(--text-main); font-weight: 500; font-size: 1rem; line-height: 1.4; }
+
+
+/* =========================================
+   PAGE PROJETS : DESIGN DES CARTES
+   ========================================= */
+.projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; max-width: 1100px; margin: 0 auto 50px; }
+
+.project-card {
+    background: linear-gradient(145deg, rgba(30, 30, 35, 0.5), rgba(15, 15, 20, 0.7)); backdrop-filter: blur(15px);
+    border: 1px solid var(--card-border); border-radius: 24px; overflow: hidden; display: flex; flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+.project-card:hover { transform: translateY(-8px); border-color: rgba(96, 165, 250, 0.4); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(96, 165, 250, 0.1); }
+
+.project-image-container { width: 100%; height: 220px; position: relative; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.project-image { width: 100%; height: 100%; background-size: cover; background-position: center; transition: transform 0.6s ease; }
+.project-card:hover .project-image { transform: scale(1.08); }
+
+.project-overlay-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); width: 60px; height: 60px; background: rgba(96, 165, 250, 0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #fff; opacity: 0; transition: all 0.4s ease; backdrop-filter: blur(5px); }
+.project-card:hover .project-overlay-icon { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+.project-content { padding: 30px; display: flex; flex-direction: column; flex-grow: 1; }
+
+.project-tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
+.project-tech-tags span { font-size: 0.75rem; font-weight: 600; padding: 5px 12px; background: rgba(96, 165, 250, 0.1); color: var(--accent-color); border-radius: 8px; border: 1px solid rgba(96, 165, 250, 0.2); letter-spacing: 0.5px; }
+
+.project-content h2 { font-family: var(--font-heading); font-size: 1.5rem; color: var(--text-main); margin-bottom: 10px; line-height: 1.3; transition: color 0.3s; }
+.project-card:hover .project-content h2 { color: var(--accent-color); }
+
+.project-meta { display: flex; gap: 15px; margin-bottom: 20px; font-size: 0.85rem; color: var(--text-muted); flex-wrap: wrap; }
+.project-meta span { display: flex; align-items: center; gap: 6px; }
+.project-meta i { color: var(--accent-color); opacity: 0.8; }
+
+/* TEXTES JUSTIFIÉS POUR LES PROJETS */
+.project-content p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    text-align: justify; /* <-- Justifié ici */
+}
+
+.project-intro {
+    color: #d1d5db !important;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-style: italic;
+    border-left: 2px solid var(--accent-color);
+    padding-left: 15px;
+    text-align: justify; /* <-- Justifié ici */
+}
+
+.project-tasks { list-style: none; margin-bottom: 30px; padding-left: 0; }
+.project-tasks li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-align: justify; /* <-- Justifié ici */
+}
+.project-tasks li::before { content: '▹'; position: absolute; left: 0; color: var(--accent-color); font-weight: bold; }
+
+.btn-project { margin-top: auto; display: inline-flex; align-items: center; gap: 10px; color: var(--text-main); font-weight: 500; font-size: 0.95rem; transition: all 0.3s ease; padding-bottom: 5px; border-bottom: 1px solid transparent; align-self: flex-start; }
+.btn-project i { transition: transform 0.3s ease; }
+.project-card:hover .btn-project { color: var(--accent-color); border-bottom-color: var(--accent-color); }
+.project-card:hover .btn-project i { transform: translateX(5px); }
+
+
+/* =========================================
+   RESPONSIVE DESIGN (Mobiles)
+   ========================================= */
+@media (max-width: 900px) {
+    .bento-grid, .skills-bento-grid, .about-bento-grid, .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    .hero-card, .projects-nav, .span-2 { grid-column: span 2; }
+    .nav-card { grid-column: span 1; }
+    .projects-nav { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .hero-card h1 { font-size: 3.5rem; }
+    .formations-accordion { flex-direction: column; height: 850px; }
+    .acc-vertical-title { writing-mode: horizontal-tb; transform: none; left: 110px; bottom: auto; top: 50px; font-size: 1.3rem; }
+    .about-bio p, .project-content p, .project-intro, .project-tasks li { text-align: left; } /* On retire le justifié sur mobile pour la lisibilité */
+}
+
+@media (max-width: 768px) {
+    .skills-bento-grid, .about-bento-grid, .projects-grid { grid-template-columns: 1fr; }
+    .span-2 { grid-column: span 1; } 
+    .lang-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+
+@media (max-width: 600px) {
+    .bento-grid { grid-template-columns: 1fr; }
+    .bento-card { grid-column: span 1 !important; padding: 25px; }
+    .hero-card h1 { font-size: 2.8rem; }
+    .custom-logo { height: 60px; } 
+    .custom-logo-small { height: 50px; }
+    .page-header h1 { font-size: 2.2rem; }
+    .project-image-container { height: 180px; }
+}
+/* =========================================
+   VARIABLES GLOBALES & FOND
+   ========================================= */
+:root {
+    --bg-main: #0a0a0c;
+    --card-bg: rgba(25, 25, 30, 0.4); 
+    --card-border: rgba(255, 255, 255, 0.05);
+    --accent-color: #60a5fa; 
+    --accent-glow: rgba(96, 165, 250, 0.15);
+    
+    --text-main: #ffffff;
+    --text-muted: #9ca3af;
+    
+    --font-heading: 'Syne', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-image: radial-gradient(circle at 50% -10%, #141e30 0%, var(--bg-main) 70%);
+    background-attachment: fixed;
+}
+
+a { text-decoration: none; color: inherit; display: block; outline: none; }
+
+.app-container {
+    width: 100%;
+    max-width: 1100px;
+    padding: 40px 20px;
+}
+
+/* =========================================
+   EN-TÊTE ET LOGO
+   ========================================= */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.logo-container { display: block; }
+.custom-logo { height: 70px; width: auto; object-fit: contain; transition: transform 0.4s ease; }
+.custom-logo:hover { transform: scale(1.05); }
+
+.header-links { display: flex; gap: 15px; align-items: center; }
+
+.contact-header {
+    width: 50px; height: 50px;
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; transition: all 0.3s ease; backdrop-filter: blur(10px);
+}
+.contact-header:hover { background: var(--text-main); color: var(--bg-main); transform: scale(1.1); }
+
+/* =========================================
+   PAGE D'ACCUEIL : GRILLE BENTO
+   ========================================= */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(220px, auto);
+    gap: 24px;
+}
+
+.bento-card {
+    background: linear-gradient(145deg, rgba(30, 30, 35, 0.5), rgba(15, 15, 20, 0.7));
+    backdrop-filter: blur(15px); border: 1px solid var(--card-border); border-radius: 30px;
+    padding: 35px; display: flex; flex-direction: column; position: relative;
+    overflow: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+a.bento-card:hover {
+    transform: translateY(-8px); border-color: rgba(96, 165, 250, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(96, 165, 250, 0.1);
+    background: linear-gradient(145deg, rgba(35, 35, 45, 0.8), rgba(20, 20, 25, 0.9));
+    cursor: pointer;
+}
+
+.hover-glow {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at top right, var(--accent-glow), transparent 60%);
+    opacity: 0; transition: opacity 0.5s ease; pointer-events: none; z-index: 0;
+}
+a.bento-card:hover .hover-glow { opacity: 1; }
+
+.span-2-col { grid-column: span 2; }
+.span-3-col { grid-column: span 3; }
+.span-2-row { grid-row: span 2; }
+
+/* Styles Accueil */
+.hero-card { justify-content: center; background: linear-gradient(135deg, rgba(20,20,25,0.9), rgba(10,10,12,0.9)); }
+.hero-card h1 { font-family: var(--font-heading); font-size: 4.5rem; line-height: 1; margin-bottom: 15px; letter-spacing: -1px;}
+.hero-card h2 { font-size: 1.3rem; color: var(--text-muted); font-weight: 400; margin-bottom: 30px; }
+.divider { width: 50px; height: 3px; background-color: var(--accent-color); margin-bottom: 30px; border-radius: 5px; }
+.hero-card .quote { font-style: italic; font-weight: 300; font-size: 1.1rem; line-height: 1.5; color: #d1d5db; }
+
+.card-icon-large {
+    width: 70px; height: 70px; background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px;
+    display: flex; align-items: center; justify-content: center; font-size: 2rem;
+    color: var(--text-main); margin-bottom: auto; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative; z-index: 1;
+}
+
+a.bento-card:hover .card-icon-large {
+    background: rgba(96, 165, 250, 0.2); color: var(--accent-color);
+    border-color: rgba(96, 165, 250, 0.4); transform: scale(1.1) rotate(-5deg); box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.nav-card-content { position: relative; z-index: 1; margin-top: 30px; }
+.nav-card-content h3 { font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 10px; transition: color 0.3s; }
+.nav-card-content p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
+a.bento-card:hover .nav-card-content h3 { color: var(--accent-color); }
+
+.projects-nav { flex-direction: row; align-items: center; justify-content: flex-start; gap: 40px; }
+.projects-preview { display: flex; gap: -30px; position: relative; z-index: 1; }
+.preview-img {
+    width: 120px; height: 120px; border-radius: 20px;
+    background-size: cover; background-position: center; background-color: #333;
+    border: 4px solid var(--bg-main); box-shadow: 0 10px 20px rgba(0,0,0,0.5); transition: all 0.5s ease;
+}
+.preview-img:nth-child(2) { margin-left: -50px; transform: scale(0.85) rotate(5deg); opacity: 0.7; }
+a.bento-card:hover .preview-img:nth-child(1) { transform: translateY(-10px) rotate(-5deg) scale(1.05); box-shadow: 0 20px 30px rgba(0,0,0,0.6); }
+a.bento-card:hover .preview-img:nth-child(2) { transform: translateY(-5px) rotate(8deg) scale(1.05); margin-left: -30px; opacity: 1; }
+
+a.cv-card:hover { border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(16, 185, 129, 0.1); }
+a.cv-card:hover .cv-icon { background: rgba(16, 185, 129, 0.2); color: #10b981; border-color: rgba(16, 185, 129, 0.4); }
+a.cv-card:hover .nav-card-content h3 { color: #10b981; }
+.cv-glow { background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.15), transparent 60%); }
+
+
+/* =========================================
+   PAGE FORMATIONS (TIMELINE HAUT DE GAMME)
+   ========================================= */
+.back-btn {
+    display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 0.95rem; font-weight: 500;
+    transition: all 0.3s ease; background: var(--card-bg); padding: 10px 20px;
+    border: 1px solid var(--card-border); border-radius: 30px; backdrop-filter: blur(10px);
+}
+.back-btn:hover { color: var(--text-main); border-color: var(--accent-color); transform: translateX(-5px); }
+.custom-logo-small { height: 45px; }
+
+.page-header { text-align: center; margin-bottom: 70px; margin-top: 20px; }
+.icon-title {
+    width: 80px; height: 80px; margin: 0 auto 20px; background: rgba(96, 165, 250, 0.1); color: var(--accent-color);
+    border: 1px solid rgba(96, 165, 250, 0.3); border-radius: 25px;
+    display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
+}
+.page-header h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 15px; }
+.page-header p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+/* Conteneur de la Timeline */
+.timeline-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* La ligne centrale lumineuse */
+.timeline-line {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 4px; height: 100%;
+    background: linear-gradient(to bottom, rgba(96, 165, 250, 0.8), rgba(96, 165, 250, 0.1));
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(96, 165, 250, 0.5);
+}
+
+/* Chaque bloc de formation */
+.timeline-item {
+    position: relative;
+    width: 100%;
+    margin-bottom: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Alterne gauche et droite */
+.timeline-item.left-item { flex-direction: row; }
+.timeline-item.right-item { flex-direction: row-reverse; }
+
+/* Le point lumineux sur la ligne */
+.timeline-dot {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px; height: 24px;
+    background: var(--bg-main);
+    border: 4px solid var(--accent-color);
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 20px rgba(96, 165, 250, 0.8);
+    transition: all 0.3s ease;
+}
+
+/* Les dates accrochées à la ligne */
+.timeline-date {
+    width: 45%;
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.2); /* Date en filigrane par défaut */
+    transition: color 0.4s ease;
+}
+.left-item .timeline-date { text-align: right; padding-right: 40px; }
+.right-item .timeline-date { text-align: left; padding-left: 40px; }
+
+/* La carte de contenu (comme celles de l'accueil) */
+.formation-card {
+    width: 45%;
+    display: flex; gap: 25px; align-items: center; position: relative; overflow: hidden;
+    background: linear-gradient(145deg, rgba(30, 30, 35, 0.5), rgba(15, 15, 20, 0.7));
+    backdrop-filter: blur(15px); border: 1px solid var(--card-border); border-radius: 24px; padding: 30px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* L'interactivité globale quand on survole la carte */
+.formation-card:hover {
+    transform: translateY(-5px); border-color: rgba(96, 165, 250, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+.formation-card:hover .hover-glow { opacity: 1; }
+.timeline-item:hover .timeline-dot { background: var(--accent-color); transform: translate(-50%, -50%) scale(1.3); }
+.timeline-item:hover .timeline-date { color: var(--accent-color); }
+
+.formation-logo {
+    width: 70px; height: 70px; flex-shrink: 0; position: relative; z-index: 1;
+    background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 18px; display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; color: #fff; transition: 0.3s;
+}
+.formation-card:hover .formation-logo { background: rgba(96, 165, 250, 0.2); color: var(--accent-color); transform: scale(1.05) rotate(-5deg); }
+
+.formation-info { position: relative; z-index: 1; }
+.formation-info h2 { font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 5px; color: var(--text-main); }
+.formation-info h3 { font-size: 0.9rem; color: #d1d5db; font-weight: 400; margin-bottom: 12px; }
+.formation-info .location { color: var(--text-muted); font-style: italic; }
+.formation-info .speciality { display: inline-block; padding: 6px 14px; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 0.85rem; color: var(--accent-color); border: 1px solid rgba(96, 165, 250, 0.2); }
+
+/* =========================================
+   RESPONSIVE DESIGN (Tablettes & Mobiles)
+   ========================================= */
+@media (max-width: 900px) {
+    .bento-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    .hero-card, .projects-nav { grid-column: span 2; }
+    .nav-card { grid-column: span 1; }
+    .projects-nav { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .hero-card h1 { font-size: 3.5rem; }
+}
+
+@media (max-width: 768px) {
+    /* Sur mobile, la ligne passe à gauche */
+    .timeline-line { left: 30px; transform: translateX(0); }
+    .timeline-dot { left: 30px; transform: translate(-50%, -50%); }
+    
+    .timeline-item.left-item, .timeline-item.right-item { flex-direction: column; align-items: flex-end; }
+    
+    /* Les dates passent au-dessus de la carte */
+    .timeline-date { width: calc(100% - 70px); text-align: left !important; padding: 0 !important; margin-bottom: 15px; font-size: 1.3rem; }
+    
+    /* Les cartes prennent toute la largeur restante */
+    .formation-card { width: calc(100% - 70px); flex-direction: column; text-align: center; gap: 15px; }
+    .timeline-item:hover .timeline-dot { transform: translate(-50%, -50%) scale(1.3); }
+}
+
+@media (max-width: 600px) {
+    .bento-grid { grid-template-columns: 1fr; }
+    .bento-card { grid-column: span 1 !important; padding: 25px; }
+    .hero-card h1 { font-size: 2.8rem; }
+    .custom-logo { height: 50px; }
+    .page-header h1 { font-size: 2.2rem; }
+}
